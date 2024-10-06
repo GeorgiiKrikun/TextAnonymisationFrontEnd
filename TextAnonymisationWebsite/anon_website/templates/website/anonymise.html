@@ -1,0 +1,29 @@
+{% extends 'core/core.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h2>Upload your files here</h2>
+<p> Supported file types: 
+  <ul>
+    <li>Plaintext files <b>.txt</b></li>
+    <li>Microsoft Documents 2007: Word <b>.docx</b>, Excel <b>.docx</b> </li>
+    <li>OpenDocument format: Writer <b>.odt</b>, Calc <b>.ods</b></li>
+    <li>Zip archives <b>.zip</b></li>
+  </ul>
+</p>
+<form class="row g-3">
+    <div class="mb-3">
+        <input class="form-control" type="file" id="formFile">
+    </div>
+</form>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary"> Add more files</button>
+</div>
+<div class="btn-group">
+    <button type="button" class="btn btn-success">Go!</button>
+</div>
+
+{% endblock %}
+

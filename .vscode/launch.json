@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "runserver",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/TextAnonymisationWebsite/manage.py",
+            "cwd": "${workspaceFolder}/TextAnonymisationWebsite",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "runserver",
+                "--noreload"
+            ],
+            "justMyCode": false
+        },
+    ]
+}

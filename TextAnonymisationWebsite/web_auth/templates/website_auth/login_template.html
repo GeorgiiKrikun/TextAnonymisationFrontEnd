@@ -1,0 +1,29 @@
+{% extends 'core/core.html' %}
+
+{% block title%} {{ button }}{% endblock %}
+
+{% load static %}
+
+{% block additional_head %} 
+<link rel="stylesheet" type="text/css" href="{% static 'website_auth/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+        <div class="div-center">
+            <div class="content">
+                <h3>{{ title }}</h3>
+                <hr />
+                <form method="post" action="{{link}}">
+                    {% csrf_token %}
+                    {{form}}
+                    <button type="submit" class="btn btn-primary btn-block">{{ button }}</button>
+                </form>
+                {% if show_signup %}
+                    <a href="{% url 'website_auth:signup' %}">Sign up</a>
+                {% endif %}
+                {% if show_reset_password %}
+                    <a href="{% url 'website_auth:reset_password' %}">Reset password</a>
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}
