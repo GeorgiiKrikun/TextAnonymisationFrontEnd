@@ -9,7 +9,8 @@
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "runserver",
+                "runserver", 
+                "8080",
                 "--noreload"
             ],
             "justMyCode": false
