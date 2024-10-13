@@ -2,12 +2,17 @@
 
 {% block title %}Home{% endblock %}
 
+{% load static %}
+
 {% block content %}
+
+<script src="{% static 'anon_website/js/requests.js' %}"></script> 
 
 <form action="{% url 'anon_website:try' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Go!</button>
+    <button class="btn btn-success" onclick="send_get_request_tasts()" >Go!</button>
 </form>
+
 
 {% endblock %}
