@@ -1,11 +1,11 @@
-{% extends 'core/core.html' %}
+{% extends 'base/base.html' %}
 
 {% block title%} {{ button }}{% endblock %}
 
 {% load static %}
 
 {% block additional_head %} 
-<link rel="stylesheet" type="text/css" href="{% static 'website_auth/css/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'web_auth/css/login.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,10 +19,10 @@
                     <button type="submit" class="btn btn-primary btn-block">{{ button }}</button>
                 </form>
                 {% if show_signup %}
-                    <a href="{% url 'website_auth:signup' %}">Sign up</a>
+                    <a href="{% url 'web_auth:signup' %}">Sign up</a>
                 {% endif %}
                 {% if show_reset_password %}
-                    <a href="{% url 'website_auth:reset_password' %}">Reset password</a>
+                    <a href="{% url 'web_auth:reset_password' %}">Reset password</a>
                 {% endif %}
             </div>
         </div>

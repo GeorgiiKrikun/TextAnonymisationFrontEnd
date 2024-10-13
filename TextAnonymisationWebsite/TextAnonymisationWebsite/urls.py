@@ -24,7 +24,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('api/v1/', include(router.urls)),
     # path('api-auth/', include('rest_framework.urls')),
-    path('website/', include("website.urls")), 
+    path('website/', include("anon_website.urls")), 
     path('finished_registration/', finished_registration_view, name='finished_registration'),
-    path('website-auth/', include("website_auth.urls")), # Auth routes - login / register
+    path('website-auth/', include("web_auth.urls")), # Auth routes - login / register
 ]

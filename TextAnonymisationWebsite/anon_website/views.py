@@ -2,11 +2,11 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.urls import reverse, reverse_lazy
-from Django.website.forms import LoginForm, SignupForm, TryForm
+from anon_website.forms import LoginForm, SignupForm, TryForm
 
-@login_required(login_url=reverse_lazy('website_auth:login'))
+@login_required(login_url=reverse_lazy('web_auth:login'))
 def anonymise_view(request):
-    return render(request, 'website/anonymise.html')
+    return render(request, 'anon_website/anonymise.html')
 
 def try_view(request):
     if request.method == 'POST':
@@ -18,10 +18,10 @@ def try_view(request):
         form = TryForm()
         context = {'form': form}
     
-    return render(request, 'website/try.html', context=context)
+    return render(request, 'anon_website/try.html', context=context)
 
 def home_view(request):
-    return render(request, 'website/home.html')
+    return render(request, 'anon_website/home.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def login_view(request):
                'title': 'Login',
                'button': 'Login',
                'show_signup': True}
-    return render(request, 'website/login_template.html', context)
+    return render(request, 'anon_website/login_template.html', context)
 
 def signup_view(request):
     if request.method == 'POST':
@@ -67,7 +67,7 @@ def signup_view(request):
                 'title': 'Sign Up',
                 'button': 'Sign Up',
                 'show_signup': False}
-    return render(request, 'website/login_template.html', context)
+    return render(request, 'anon_website/login_template.html', context)
 
 def finished_registration_view(request):
-    return redirect(reverse('website:home'))
+    return redirect(reverse('anon_website:home'))

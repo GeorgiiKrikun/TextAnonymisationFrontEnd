@@ -1,5 +1,5 @@
 from django.urls import path, include
-from website.views import anonymise_view, home_view, login_view, try_view, signup_view, finished_registration_view
+from anon_website.views import anonymise_view, home_view, login_view, try_view, signup_view, finished_registration_view
 
 app_name = "anon_website"
 

@@ -1,10 +1,10 @@
-{% extends 'core/core.html' %}
+{% extends 'base/base.html' %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
 
-<form action="{% url 'website:try' %}" method="post">
+<form action="{% url 'anon_website:try' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-success">Go!</button>
