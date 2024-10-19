@@ -14,8 +14,8 @@
 <form action="{% url 'anon_website:try' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-success" onclick="send_get_request_tasts()" >Go!</button>
 </form>
+<button id="try_button" class="btn btn-success" onclick="try_post_request()" >Go!</button>
 
 
 {% endblock %}

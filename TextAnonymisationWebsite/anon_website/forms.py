@@ -56,7 +56,7 @@ class TryForm(forms.Form):
         widget=forms.CheckboxInput(
             attrs={
                 'class': 'form-check-input',
-                'id': 'mySwitch'
+                'id': 'b_anonymise',
             }
         ),
         label='Deanonymise'

@@ -19,7 +19,24 @@ function get_headers() {
     return headers;
 }
 
+function get_anonymise_task() {
+    if (document.getElementById('b_anonymise').checked) {
+        task = "ID";
+    } else {
+        task = "PR";        
+    }
+    return task;
+}
+
+
+
 async function try_post_request()  {
+    button = document.getElementById('try_button');
+    button.disabled = true;
+    old_html = button.innerHTML;
+
+    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+
     const myHeaders = get_headers(); 
     console.log(myHeaders);
 
@@ -29,8 +46,8 @@ async function try_post_request()  {
     const file = new File([blob], "example.txt", { type: 'text/plain' });
 
     const lang = 0;
-    const task_type = "PR";
 
+    const task_type = get_anonymise_task();
     // Create FormData and append the file
     const formData = new FormData();
     formData.append("file", file);
@@ -47,7 +64,10 @@ async function try_post_request()  {
     console.log(posted_task_response);
     const ptr_id = posted_task_response.id;
     console.log(ptr_id);
-    get_task_result(ptr_id);
+    await get_task_result(ptr_id);
+
+    button.disabled = false;
+    button.innerHTML = old_html;
 }
 
 function set_comment(comment) {
