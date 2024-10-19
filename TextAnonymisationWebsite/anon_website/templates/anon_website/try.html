@@ -7,6 +7,9 @@
 {% block content %}
 
 <script src="{% static 'anon_website/js/requests.js' %}"></script> 
+<div id="token" style="display: none;">
+    {{ api_token }}
+</div>
 
 <form action="{% url 'anon_website:try' %}" method="post">
     {% csrf_token %}

@@ -3,20 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.urls import reverse, reverse_lazy
 from anon_website.forms import LoginForm, SignupForm, TryForm
+from django.conf import settings
 
 @login_required(login_url=reverse_lazy('web_auth:login'))
 def anonymise_view(request):
     return render(request, 'anon_website/anonymise.html')
 
 def try_view(request):
-    if request.method == 'POST':
-        form = TryForm(request.POST)
-        if form.is_valid():
-            text = form.cleaned_data['text']
-            anonymise = form.cleaned_data['anonymise']
-    elif request.method == 'GET':
-        form = TryForm()
-        context = {'form': form}
+    form = TryForm()
+    context = {'form': form,
+               'api_token': settings.API_FREE_KEY}
     
     return render(request, 'anon_website/try.html', context=context)
 

@@ -143,3 +143,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587  
 EMAIL_HOST_USER = 'salespeachgmbh@gmail.com'  
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
+
+# Free try use key
+API_FREE_KEY = "6eca0e480a841a95f06117cee091a9d876d237d3"

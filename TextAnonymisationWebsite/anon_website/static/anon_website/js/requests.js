@@ -1,6 +1,5 @@
 async function send_get_request_tasts( )  {
-    const myHeaders = new Headers(); 
-    myHeaders.append("Authorization", "Token f5c40137f2af0d3b7462eb20a131f7526ad9e3f1");
+    const myHeaders = get_headers();
     response = await fetch('http://127.0.0.1:8000/api/v1/tasks/', {method: 'GET', headers: myHeaders});
     console.log(response.json());
 }
@@ -9,9 +8,14 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function stripSpaces(str) {
+    return str.replace(/[\s\n\t]+/g, '');
+}
+
 function get_headers() {
     const headers = new Headers();
-    headers.append("Authorization", "Token f5c40137f2af0d3b7462eb20a131f7526ad9e3f1");
+    token_element = document.getElementById('token');
+    headers.append("Authorization", "Token " + stripSpaces(token_element.textContent));
     return headers;
 }
 
