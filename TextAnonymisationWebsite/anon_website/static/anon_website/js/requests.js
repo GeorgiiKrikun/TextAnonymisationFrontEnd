@@ -28,6 +28,9 @@ function get_anonymise_task() {
     return task;
 }
 
+function get_language() {
+    return document.getElementById('language').value;
+}
 
 
 async function try_post_request()  {
@@ -45,7 +48,8 @@ async function try_post_request()  {
     const blob = new Blob([text], { type: 'text/plain' });
     const file = new File([blob], "example.txt", { type: 'text/plain' });
 
-    const lang = 0;
+    const lang = get_language();
+    console.log(lang);
 
     const task_type = get_anonymise_task();
     // Create FormData and append the file

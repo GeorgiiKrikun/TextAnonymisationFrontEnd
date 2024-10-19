@@ -1,5 +1,5 @@
 from django import forms
-from django.conf import settings
+from TextAnonymisationEngine.Engine.Lang import Lang
     
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20, 
@@ -27,19 +27,6 @@ class SignupForm(forms.Form):
                                ))
 
 class TryForm(forms.Form):
-#     <form action="/action_page.php">
-#     <div class="mb-3 mt-3">
-#       <label for="comment">Type your text to anonymise or deanonymise below:</label>
-#       <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-#     </div>
-#     <div class="form-check form-switch">
-#         <input class="form-check-input" type="checkbox" id="mySwitch" name="Anonymise" value="yes">
-#         <label class="form-check-label" for="mySwitch">Deanonymise</label>
-#     </div>
-#     <div>
-#         <button type="submit" class="btn btn-success">Go!</button>
-#     </div>
-# </form>
     text = forms.CharField(
         widget=forms.Textarea(
             attrs={
@@ -51,6 +38,16 @@ class TryForm(forms.Form):
         ),
         label='Type your text to anonymise or deanonymise below:'
     )
+    language = forms.ChoiceField(
+        choices=[(lang.value, lang.name) for lang in Lang],
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'id': 'language',
+            }
+        ),
+        label='Language'
+    )
     anonymise = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(
@@ -59,5 +56,5 @@ class TryForm(forms.Form):
                 'id': 'b_anonymise',
             }
         ),
-        label='Deanonymise'
+        label='Deanonymise',
     )
