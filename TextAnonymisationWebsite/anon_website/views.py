@@ -4,10 +4,15 @@ from django.contrib.auth import authenticate, login
 from django.urls import reverse, reverse_lazy
 from anon_website.forms import LoginForm, SignupForm, TryForm
 from django.conf import settings
+from TextAnonymisationEngine.Engine.Lang import Lang
 
 @login_required(login_url=reverse_lazy('web_auth:login'))
 def anonymise_view(request):
-    return render(request, 'anon_website/anonymise.html')
+    context = {'languages': []}
+    for lang in Lang:
+        context['languages'].append({"value" : lang.value, 
+                                     "name" : lang.name})
+    return render(request, 'anon_website/anonymise.html', context=context)
 
 def try_view(request):
     form = TryForm()
