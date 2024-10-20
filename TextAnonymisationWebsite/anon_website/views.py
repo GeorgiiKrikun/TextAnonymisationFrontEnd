@@ -12,6 +12,10 @@ def anonymise_view(request):
     for lang in Lang:
         context['languages'].append({"value" : lang.value, 
                                      "name" : lang.name})
+    
+    context['api_token'] = "f5c40137f2af0d3b7462eb20a131f7526ad9e3f1"
+
+
     return render(request, 'anon_website/anonymise.html', context=context)
 
 def try_view(request):
