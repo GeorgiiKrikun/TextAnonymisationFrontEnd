@@ -44,15 +44,13 @@ function append_new_input(div) {
 
 async function anon_post_request(button) {
     elements = get_realated_elements(button);
-    console.log(elements);
     if (!elements.fileInput.files[0]) {
         alert("Please select a file first");
         return;
     }
     const headers = get_headers();
     elements.submit.disabled = true;
-    const old_html = submit.innerHTML;
-    submit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    elements.submit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 
     const file = elements.fileInput.files[0];
     const lang = elements.language.value;
@@ -72,12 +70,11 @@ async function anon_post_request(button) {
     const ptr_id = posted_task_response.id;
     
     task_id_map.set(ptr_id, elements.div.id);
-    console.log("submitted");
     append_new_input(elements.div);
     pollTaskStatus(ptr_id);
 }
 
-async function react_on_finished_task(task_id, file_id) {
+async function react_on_finished_task(task_id, file_id, filename) {
     const div_id = task_id_map.get(task_id);
     const div = document.getElementById(div_id);
     const elements = get_div_structure(div);
@@ -86,48 +83,14 @@ async function react_on_finished_task(task_id, file_id) {
     const file_response = await fetch(get_base_link() + 'files/' + file_id + '/download/', 
         {method: 'GET', headers: myHeaders});
     
-    console.log(file_response);
     const file_data = await file_response.arrayBuffer();
-    console.log(file_data);
     const blob = new Blob([file_data], { type: 'application/octet-stream' });
 
     elements.download.href = URL.createObjectURL(blob);
-    elements.download.download = 'heh.docx';
+    elements.download.download = filename;
 
     elements.download.style.display = elements.submit.style.display;
     elements.submit.style.display = "none";
-    
-
-
-
-}
-
-async function download_file(button) {
-    const structure = get_realated_elements(button);
-    const div_id = structure.div.id;
-    const task_id = task_id_map.getKey(div_id);
-    const myHeaders = get_headers();
-    
-    const file_response = await fetch(get_base_link() + 'files/' + file_id + '/download/', 
-        {method: 'GET', headers: myHeaders});
-    console.log(file_response);
-    const file_data = await file_response.text();
-    console.log(file_data);
-    const blob = new Blob([file_data], { type: 'application/octet-stream' });
-
-    // Create a link element
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'downloaded_file.txt'; // Set the desired file name
-
-    // Append the link to the body (required for Firefox)
-    document.body.appendChild(link);
-
-    // Trigger the download by simulating a click
-    link.click();
-
-    // Remove the link from the document
-    document.body.removeChild(link);
 }
 
 
@@ -141,11 +104,9 @@ async function pollTaskStatus(taskId, interval = 5000) {
             });
             const result = await response.json();
             if (result.completed) {
-                console.log(`Task ${taskId} completed`);
                 clearInterval(pollingInterval);
                 const file_id = result.output_file.id;
-                react_on_finished_task(taskId, file_id);
-                // Update the UI or perform any other actions needed when the task is completed
+                react_on_finished_task(taskId, file_id, result.output_file.name);
             } else {
                 console.log(`Task ${taskId} still processing`);
             }
