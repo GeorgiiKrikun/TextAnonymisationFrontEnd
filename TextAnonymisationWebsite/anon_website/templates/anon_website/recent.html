@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<h2>Files processed up to last 2 days are stored here.</h2>
+<p> Please note that per the content policy and to ensure your privacy, files are deleted next midnight CEST after processing.
+</p>
+
+<div id="token" style="display: none;">
+  {{ api_token }}
+</div>
+
+<script src="{% static 'anon_website/js/common.js' %}"></script> 
+<script src="{% static 'anon_website/js/recent.js' %}"></script> 
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Filename</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col"></th>
+        </tr> 
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td id = "filename" >{{ task.file_name }}</td>
+                <td>{{ task.file_day }}</td>
+                <td>{{ task.file_time }}</td>
+                <td>
+                    <input type="hidden" id="file_id" value="{{ task.file_id }}">
+                    <a href="#" class="btn btn-primary" id="download" style="display: none;">link</a>
+                    <button type="button" class="btn btn-success" id = "download_button" onclick="retrieve_file(this)" >Download</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

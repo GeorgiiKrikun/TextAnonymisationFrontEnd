@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from anon_website.views import finished_registration_view
+from anon_website.views import finished_registration_view, home_redirect_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('admin/', admin.site.urls),
     # path('api/v1/', include(router.urls)),
     # path('api-auth/', include('rest_framework.urls')),
-    path('website/', include("anon_website.urls")), 
+    path('website/', include("anon_website.urls"), name='website'), # Main website routes
     path('finished_registration/', finished_registration_view, name='finished_registration'),
-    path('website-auth/', include("web_auth.urls")), # Auth routes - login / register
+    path('website-auth/', include("web_auth.urls"), name='web_auth'), # Auth routes - login / register
+    path('', home_redirect_view, name='home_redirect'),
 ]
